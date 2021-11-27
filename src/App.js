@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Header from './component/Header';
+import Coins from './pages/Coins';
+import Homepage from './pages/Homepage';
 
 function App() {
+  const darkTheme = createTheme({
+    palette: {
+      primary:{
+        main: "#fff"
+      },
+      type: 'dark',
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ThemeProvider theme={darkTheme}>
+          <Header />
+            <Routes>
+               <Route path="/" element={<Homepage/>}/>
+               <Route path="/coin/:id" element={<Coins/>}/>
+            </Routes>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
